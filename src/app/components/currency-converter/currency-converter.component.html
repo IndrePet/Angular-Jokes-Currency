@@ -5,7 +5,7 @@
       <div class="mb-2">{{ conversion?.rates?.USD }} USD</div>
       <button class="btn btn-success" (click)="addOne()">Add 1 EUR</button>
     </div>
-    <div *ngIf="loading" class="alert alert-info">Please wait...</div>
+    <div *ngIf="loading && !error" class="alert alert-info">Please wait...</div>
     <div *ngIf="error" class="alert alert-warning">Something went wrong</div>
   </div>
 </div>
