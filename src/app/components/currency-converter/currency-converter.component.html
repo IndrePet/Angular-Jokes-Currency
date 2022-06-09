@@ -1,1 +1,7 @@
-<p>currency-converter works!</p>
+<div class="card">
+  <div class="card-body">
+    <h4>Converting {{ amount }} EUR to USD:</h4>
+    <div class="mb-2">{{ conversion?.rates?.USD }} USD</div>
+    <button class="btn btn-success" (click)="addOne()">Add 1 EUR</button>
+  </div>
+</div>
