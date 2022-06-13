@@ -45,7 +45,14 @@ export class CurrencyConverterComponent implements OnInit {
     });
   }
 
-  public start() {
+  public start(
+    from: HTMLSelectElement,
+    to: HTMLSelectElement,
+    amount: HTMLInputElement
+  ) {
+    this.currencyFrom = from.value;
+    this.currencyTo = to.value;
+    this.amount = Number(amount.value);
     this.convert();
   }
 }

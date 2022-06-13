@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="mb-3">
       <label class="form-label">Versti iš:</label>
-      <select class="form-control" [(ngModel)]="currencyFrom">
+      <select class="form-control" #currencyFromInput>
         <option *ngFor="let currency of currencies" [value]="currency">
           {{ currency }}
         </option>
@@ -10,7 +10,7 @@
     </div>
     <div class="mb-3">
       <label class="form-label">Versti į:</label>
-      <select class="form-control" [(ngModel)]="currencyTo">
+      <select class="form-control" #currencyToInput>
         <option *ngFor="let currency of currencies" [value]="currency">
           {{ currency }}
         </option>
@@ -18,9 +18,14 @@
     </div>
     <div class="mb-3">
       <label class="form-label">Suma</label>
-      <input type="number" class="form-control" [(ngModel)]="amount" />
+      <input type="number" class="form-control" #amountInput />
     </div>
-    <button class="btn btn-success mb-3" (click)="start()">Convert</button>
+    <button
+      class="btn btn-success mb-3"
+      (click)="start(currencyFromInput, currencyToInput, amountInput)"
+    >
+      Convert
+    </button>
     <div *ngIf="!loading && !error">
       <h4>Converting {{ amount }} {{ currencyFrom }} to {{ currencyTo }}:</h4>
       <div class="mb-2">{{ conversion }} {{ currencyTo }}</div>
