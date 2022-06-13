@@ -1,5 +1,7 @@
 export interface Joke {
-  joke: string;
+  joke: string | null;
+  setup: string | null;
+  delivery: string | null;
   category: string;
   id: number;
   type: string;
