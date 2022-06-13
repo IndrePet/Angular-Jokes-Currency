@@ -1,9 +1,29 @@
 <div class="card">
   <div class="card-body">
+    <div class="mb-3">
+      <label class="form-label">Versti iš:</label>
+      <select class="form-control" [(ngModel)]="currencyFrom">
+        <option *ngFor="let currency of currencies" [value]="currency">
+          {{ currency }}
+        </option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Versti į:</label>
+      <select class="form-control" [(ngModel)]="currencyTo">
+        <option *ngFor="let currency of currencies" [value]="currency">
+          {{ currency }}
+        </option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Suma</label>
+      <input type="number" class="form-control" [(ngModel)]="amount" />
+    </div>
+    <button class="btn btn-success mb-3" (click)="start()">Convert</button>
     <div *ngIf="!loading && !error">
-      <h4>Converting {{ amount }} EUR to USD:</h4>
-      <div class="mb-2">{{ conversion?.rates?.USD }} USD</div>
-      <button class="btn btn-success" (click)="addOne()">Add 1 EUR</button>
+      <h4>Converting {{ amount }} {{ currencyFrom }} to {{ currencyTo }}:</h4>
+      <div class="mb-2">{{ conversion }} {{ currencyTo }}</div>
     </div>
     <div *ngIf="loading && !error" class="alert alert-info">Please wait...</div>
     <div *ngIf="error" class="alert alert-warning">Something went wrong</div>

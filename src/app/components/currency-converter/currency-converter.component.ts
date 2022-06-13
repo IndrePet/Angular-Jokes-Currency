@@ -8,32 +8,44 @@ import { CurrencyService } from 'src/app/services/currency.service';
   styleUrls: ['./currency-converter.component.css'],
 })
 export class CurrencyConverterComponent implements OnInit {
-  public conversion: Currency | null = null;
-  public amount: number = 10;
+  public conversion: string = '';
+  public amount: number = 0;
   public loading = true;
   public error = false;
+  public currencies: string[] = [];
+  public currencyFrom: string = '';
+  public currencyTo: string = '';
 
   constructor(private currencyService: CurrencyService) {}
 
-  public convert(amount: number) {
+  ngOnInit(): void {
+    this.loadCurrencies();
+  }
+
+  public convert() {
     this.loading = true;
-    this.currencyService.getConversion(amount).subscribe({
+    this.currencyService
+      .getConversion(this.amount, this.currencyFrom, this.currencyTo)
+      .subscribe({
+        next: (result) => {
+          this.conversion = Number(result.rates[this.currencyTo]).toFixed(2);
+          this.loading = false;
+        },
+        error: () => {
+          this.error = true;
+        },
+      });
+  }
+
+  public loadCurrencies() {
+    this.currencyService.getCurrencies().subscribe({
       next: (result) => {
-        this.conversion = result;
-        this.loading = false;
-      },
-      error: () => {
-        this.error = true;
+        Object.keys(result).forEach((e) => this.currencies.push(e));
       },
     });
   }
 
-  ngOnInit(): void {
-    this.convert(this.amount);
-  }
-
-  public addOne() {
-    this.amount += 1;
-    this.convert(this.amount);
+  public start() {
+    this.convert();
   }
 }
